@@ -24,10 +24,10 @@ IMAGE_FOLDER="/content/drive/My Drive/git/images/"
 MODEL_PATH="/content/drive/My Drive/git/model2.json"
 WEIGHT_PATH="/content/drive/My Drive/git/model2v2.h5"
 FACENET_MODEL_PATH="/content/model/facenet_keras.h5"
-DATA_PATH="db.csv"
+DATA_PATH="/content/drive/My Drive/git/db.csv"
 #--------------------------------------
 
-from face_recognition import FaceVerification
+from FaceRecognition.face_recognition import FaceVerification
 fv=FaceVerification()
 model=fv.get_model(MODEL_PATH,WEIGHT_PATH)
 model.compile(loss="binary_crossentropy",optimizer='adam')
@@ -51,10 +51,10 @@ class FaceRecognitionUtils:
           #cv2.waitKey(delay=100)
           success,image = vidcap.read()
           count += 1
-
+    """
     def get_encoding(e1,e2):
         return np.subtract(e1,e2)
-    """
+   
     def check_in_db(self,data,embedding,labels):
         for i,j in zip(data,labels):
             vector=get_encoding(i,embedding)
@@ -73,9 +73,9 @@ class FaceRecognitionUtils:
           m=(i_p.shape[0]+i)%(dicti.shape[0])
           new=np.concatenate((dicti[i:dicti.shape[0]],dicti[0:m]),axis=0)
           current_labels=np.concatenate((labels[i:label.shape[0]],label[0:m]),axis=0)
-          vector=get_encoding(new,i_p)
+          vector=np.subtract(new,i_p)
         else:
-          vector=get_encoding(dicti[i:m],i_p)
+          vector=np.subtract(dicti[i:m],i_p)
           current_labels=labels[i:m]
         result=model.predict(vector)
         for i in result:
