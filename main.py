@@ -15,18 +15,32 @@ Snippets from this file will be used in production.
 """
 main.py must have minimal imports. Try to cover all the imports in calling modules.
 """
-from face_recognition import FaceDetection, FaceRecognition, FaceVerification  # noqa
-from utils import FaceRecognitionUtils
+from FaceRecognition.face_recognition import FaceDetection, FaceRecognition, FaceVerification  # noqa
+from FaceRecognition.utils import FaceRecognitionUtils
 import os
-
-#filename comming from raspberry pi cam when a face is detected.
-input_video=VIDEO_FILE
-video_to_frame(input_video,IMAGE_FOLDER)
-#scandir is supported on python versions abpve 3.5
 
 fd=FaceDetection()
 fv=FaceVerification()
 fr=FaceRecognition()
+fu=FaceRecognitionUtils()
+
+#--------------------------------------
+#image size of the cropped face
+IMG_SHAPE = (160, 160)
+#contains file location of the video file
+VIDEO_FILE="/content/drive/My Drive/git/meet1.mp4"
+#contains all the images obtained from frame
+IMAGE_FOLDER="/content/drive/My Drive/git/images/"
+MODEL_PATH="/content/drive/My Drive/git/model2.json"
+WEIGHT_PATH="/content/drive/My Drive/git/model2v2.h5"
+FACENET_MODEL_PATH="/content/model/facenet_keras.h5"
+DATA_PATH="db.csv"
+#--------------------------------------
+
+#filename comming from raspberry pi cam when a face is detected.
+input_video=VIDEO_FILE
+fu.video_to_frame(input_video,IMAGE_FOLDER)
+#scandir is supported on python versions abpve 3.5
 
 with os.scandir("/content/drive/My Drive/git/images") as it:
     for entry in it:
