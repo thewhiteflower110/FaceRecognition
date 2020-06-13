@@ -13,7 +13,7 @@ import cv2  # noqa
 #from cv2 import WaitKey,VideoCapture,imwrite
 import os
 #image size of the cropped face
-
+import numpy as np
 #--------------------------------------
 #image size of the cropped face
 IMG_SHAPE = (160, 160)
