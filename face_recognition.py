@@ -14,18 +14,30 @@ from os.path import isdir  # noqa
 import cv2  # noqa
 import matplotlib.pyplot as plt  # noqa
 import numpy as np
-from constants import IMG_SHAPE  # noqa
+from FaceRecognition.constants import IMG_SHAPE  # noqa
 from mtcnn.mtcnn import MTCNN  # noqa
 from PIL import Image  # noqa
 from keras.models import load_model, model_from_json  # noqa
 from numpy import asarray, expand_dims, load, savez_compressed  # noqa
 import pandas as pd
+#--------------------------------------
+#image size of the cropped face
+IMG_SHAPE = (160, 160)
+#contains file location of the video file
+VIDEO_FILE="/content/drive/My Drive/git/meet1.mp4"
+#contains all the images obtained from frame
+IMAGE_FOLDER="/content/drive/My Drive/git/images/"
+MODEL_PATH="/content/drive/My Drive/git/model2.json"
+WEIGHT_PATH="/content/drive/My Drive/git/model2v2.h5"
+FACENET_MODEL_PATH="/content/model/facenet_keras.h5"
+DATA_PATH="db.csv"
+#--------------------------------------
 
 class FaceDetection:
     def __init__(self):
         pass
 
-    def find_face(self, img: file_path) -> np.asarray:
+    def find_face(self, img):
         image = Image.open(img)
         # convert to RGB, if needed
         image = image.convert("RGB")
@@ -59,7 +71,7 @@ class FaceVerification:
     def __init__(self):
         pass
 
-    def get_embedding(self, model, face_pixels: np.array) -> np.asarray:
+    def get_embedding(self, model, face_pixels):
         # scale pixel values
         face_pixels = face_pixels.astype("float32")
         # standardize pixel values across channels (global)
@@ -74,7 +86,7 @@ class FaceVerification:
         yhat = model.predict(samples)
         return yhat
 
-    def get_facenet_model(FACENET_MODEL_PATH): ->model
+    def get_facenet_model(self,FACENET_MODEL_PATH):
         model = load_model(FACENET_MODEL_PATH)
         return model
       
