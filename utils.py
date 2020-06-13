@@ -65,6 +65,7 @@ class FaceRecognitionUtils:
     """
     def check_in_db(self,data,embedding,labels):
       i_p=embedding
+      import numpy as np
       dicti=data
       answer=[None]*i_p.shape[0]
       for i in range(0,dicti.shape[0]):
