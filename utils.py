@@ -73,14 +73,14 @@ class FaceRecognitionUtils:
         if(i_p.shape[0]+i>dicti.shape[0]):
           m=(i_p.shape[0]+i)%(dicti.shape[0])
           new=np.concatenate((dicti[i:dicti.shape[0]],dicti[0:m]),axis=0)
-          current_labels=np.concatenate((labels[i:labels.shape[0]],labels[0:m]),axis=0)
+          current_labels=np.concatenate((labels[i:len(labels)],labels[0:m]),axis=0)
           vector=np.subtract(new,i_p)
         else:
           vector=np.subtract(dicti[i:m],i_p)
           current_labels=labels[i:m]
         result=model.predict(vector)
-        for i in result:
-          if result[i]<=0.5:
+        for i in range(0,len(result)):
+          if result[i][0]<=0.5:
             #i_p=np.delete(i_p,i,axis=0)
             answer[i]=current_labels[i]
       return answer
