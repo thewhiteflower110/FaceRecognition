@@ -102,7 +102,7 @@ class FaceVerification:
 class FaceRecognition:
     def __init__(self):
         pass
-    def load_database(self,DATA_PATH): ->np.asarray
+    def load_database(self,DATA_PATH):
         df=pd.read_csv(DATA_PATH)
         name=df['name']
         encodings=[]
