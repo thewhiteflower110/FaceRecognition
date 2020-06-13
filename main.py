@@ -45,12 +45,12 @@ fu.video_to_frame(input_video,IMAGE_FOLDER)
 with os.scandir("/content/drive/My Drive/git/images") as it:
     for entry in it:
         if entry.name.endswith(".jpg"):
-            path="/content/drive/My Drive/git/images"+entry.name
+            path="/content/drive/My Drive/git/images/"+entry.name
             face=fd.find_face(path)
             model=fv.get_facenet_model(FACENET_MODEL_PATH)
             embeddings=fv.get_embedding(model,face)
             data,labels=fr.load_database(DATA_PATH) # CHECK HERE NEED TO UPDATE
-            identified=check_in_db(data,embedding,labels)
+            identified=check_in_db(data,embeddings,labels)
             print(identified)
             #if identified != None:
             #    print(identified) #TEXT CONVERSION HERE
