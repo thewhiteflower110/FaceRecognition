@@ -13,11 +13,19 @@ import cv2  # noqa
 #from cv2 import WaitKey,VideoCapture,imwrite
 import os
 #image size of the cropped face
+
+#--------------------------------------
+#image size of the cropped face
 IMG_SHAPE = (160, 160)
 #contains file location of the video file
-VIDEO_FILE="/content/drive/My Drive/git/meet.mp4"
+VIDEO_FILE="/content/drive/My Drive/git/meet1.mp4"
 #contains all the images obtained from frame
-IMAGE_FOLDER="/content/drive/My Drive/git/images"
+IMAGE_FOLDER="/content/drive/My Drive/git/images/"
+MODEL_PATH="/content/drive/My Drive/git/model2.json"
+WEIGHT_PATH="/content/drive/My Drive/git/model2v2.h5"
+FACENET_MODEL_PATH="/content/model/facenet_keras.h5"
+DATA_PATH="db.csv"
+#--------------------------------------
 
 from face_recognition import FaceVerification
 fv=FaceVerification()
@@ -46,7 +54,7 @@ class FaceRecognitionUtils:
 
     def get_encoding(e1,e2):
         return np.subtract(e1,e2)
-"""
+    """
     def check_in_db(self,data,embedding,labels):
         for i,j in zip(data,labels):
             vector=get_encoding(i,embedding)
@@ -54,7 +62,7 @@ class FaceRecognitionUtils:
             if result<=0.5:
                 return j
         return None
-"""
+    """
     def check_in_db(self,data,embedding,labels):
       i_p=embedding
       dicti=data
