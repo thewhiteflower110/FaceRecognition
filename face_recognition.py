@@ -108,7 +108,7 @@ class FaceRecognition:
         encodings=[]
         for index,row in df.iterrows():
           enc=[]
-          for i in range(1,129):
+          for i in range(0,128):
             enc.append(row[str(i)])
           encodings.append(enc)
         return np.asarray(encodings),name
