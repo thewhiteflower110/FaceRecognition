@@ -12,6 +12,7 @@ Original file is located at
 import cv2  # noqa
 #from cv2 import WaitKey,VideoCapture,imwrite
 import os
+import time #noqa
 #image size of the cropped face
 import numpy as np
 #--------------------------------------
