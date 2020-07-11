@@ -25,6 +25,7 @@ MODEL_PATH="/content/drive/My Drive/git/model2.json"
 WEIGHT_PATH="/content/drive/My Drive/git/model2v2.h5"
 FACENET_MODEL_PATH="/content/model/facenet_keras.h5"
 DATA_PATH="/content/drive/My Drive/git/db.csv"
+FRAME_RATE=5
 #--------------------------------------
 
 from FaceRecognition.face_recognition import FaceVerification
@@ -40,17 +41,21 @@ class FaceRecognitionUtils:
     def __init__(self):
         pass
 
-    def video_to_frame(self, input_video,IMAGE_FOLDER):    
-        if not os.path.exists(IMAGE_FOLDER):
-            os.mkdir(IMAGE_FOLDER)
-        vidcap = cv2.VideoCapture(input_video)
-        success,image = vidcap.read()
-        count = 0
-        while success:
-          cv2.imwrite(IMAGE_FOLDER+"/frame%d.jpg" % count, image)     # save frame as JPEG file
-          #cv2.waitKey(delay=100)
-          success,image = vidcap.read()
-          count += 1
+    def video_to_frame(self,input_video,IMAGE_FOLDER):
+      if not os.path.exists(IMAGE_FOLDER):
+          os.mkdir(IMAGE_FOLDER)
+      vidcap = cv2.VideoCapture(input_video)
+      success,image = vidcap.read()
+      count = 0
+      frame_rate = FRAME_RATE
+      prev = 0  
+      while success:
+        time_elapsed = time.time() - prev
+        if time_elapsed > 1./frame_rate:
+            prev = time.time()
+            cv2.imwrite(IMAGE_FOLDER+"/frame%d.jpg" % count, image)     # save frame as JPEG file
+            success,image = vidcap.read()
+            count += 1
     """
     def get_encoding(e1,e2):
         return np.subtract(e1,e2)
